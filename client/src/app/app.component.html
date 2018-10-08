@@ -1,0 +1,95 @@
+<div class="container">
+    <div class="vbottom">
+            <div class="row">
+                    <div class="col col-md-12">
+                        <div class="row">
+                            <div class="col col-md-3 pull-right">
+                                    <div class="input-group">
+                                      <input 
+                                        id="btn-input-name" 
+                                        type="text" 
+                                        class="form-control input-sm" 
+                                        placeholder="Type your name here..."
+                                        [(ngModel)]="userName"
+                                      >
+                                      <span class="input-group-btn">
+                                          <button
+                                            class="btn btn-info btn-sm"
+                                            id="btn-chat-name"
+                                            (click)="sendUser()"
+                                            [disabled]="userName==''"
+                                          >
+                                            Start
+                                          </button>
+                                      </span>
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="row mt-5">
+                            <div class="col col-md-3 pull-right">
+                                <div class="panel panel-default chat-panel card card-default">
+                                    <div class="panel-heading">
+                                        <i class="fa fa-comments fa-fw"></i>
+                                        <span *ngIf="userName!=''">Chat session: {{userName}}</span>
+                                    </div>
+                                    <!-- /.panel-heading -->
+                                    <div class="panel-body">
+                                        <ul class="chat">
+                                          <ng-container  *ngFor="let messageItem of messages">
+                                              <li class="clearfix" 
+                                                [ngClass]="{'left': messageItem.colorClass=='blueText', 'right': messageItem.colorClass=='greenText'}">
+                                                  <span class="chat-img" 
+                                                    [ngClass]="{'pull-left': messageItem.colorClass=='blueText', 'pull-right': messageItem.colorClass=='greenText'}">
+                                                      <img 
+                                                        [src]="
+                                                          (messageItem.colorClass=='blueText')? 'http://placehold.it/50/55C1E7/fff':
+                                                          (messageItem.colorClass=='greenText')? 'http://placehold.it/50/FA6F57/fff':''
+                                                          "
+                                                        alt="{{messageItem.userName}}" class="img-circle">
+                                                  </span>
+                                                  <div class="chat-body clearfix">
+                                                      <div class="header">
+                                                          <strong class="primary-font">{{messageItem.userName}}</strong>
+                                                          <small class="pull-right text-muted">
+                                                              <i class="fa fa-clock-o fa-fw"></i> 12 mins ago
+                                                          </small>
+                                                      </div>
+                                                      <p [innerHTML]="messageItem.message"></p>
+                                                  </div>
+                                              </li>
+                                          </ng-container>
+                                        </ul>
+                                    </div>
+                                    <!-- /.card-body -->
+                                    <div class="panel-footer">
+                                        <div class="input-group">
+                                            <input 
+                                                id="btn-input" 
+                                                type="text" 
+                                                class="form-control input-sm" 
+                                                placeholder="Type your message here..."
+                                                [(ngModel)]="message"
+                                                (keyup)="$event.keyCode == 13 && sendMessage()"
+                                            >
+                                            <span class="input-group-btn">
+                                                <button
+                                                    class="btn btn-warning btn-sm"
+                                                    id="btn-chat"
+                                                    (click)="sendMessage()"
+                                                    [disabled]="!startChat || !message"
+                                                >
+                                                    Send
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <!-- /.card-footer -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+
+    
+</div>
